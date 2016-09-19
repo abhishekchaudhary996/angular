@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<style>
+body {font-family: "Lato", sans-serif;}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+ul.tab li {float: left;}
+
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+<body>
+
+<script>
+var app = angular.module("app", []);
+app.controller("myCtrl", function($scope) {
+    $scope.name = [];
+	$scope.value = [];
+	$scope.start = [];
+	$scope.end = [];
+    $scope.addItem = function () {
+        $scope.errortext = "";
+        if ($scope.name.indexOf($scope.nam) == -1) {
+            $scope.name.push($scope.nam);
+        } else {
+            $scope.errortext = "The name is already there";
+        }
+		
+        if ($scope.value.indexOf($scope.val) == -1) {
+            $scope.value.push($scope.val);
+        } else {
+            $scope.errortext = "same value";
+        }
+		
+		if ($scope.start.indexOf($scope.st) == -1) {
+            $scope.start.push($scope.st);
+        } else {
+            $scope.errortext = "same start date";
+        }
+		
+		if ($scope.end.indexOf($scope.en) == -1) {
+            $scope.end.push($scope.en);
+        } else {
+            $scope.errortext = "same end date";
+        }
+		
+    }
+});
+</script>
+
+<ul class="tab">
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'plan')">Plan</a></li>
+  <li><a href="#" class="tablinks" onclick="openCity(event, 'report')">Report</a></li>
+</ul>
+<div ng-app="app" ng-cloak ng-controller="myCtrl" class="w3-card-2 w3-margin" style="max-width:400px;">
+<div id="plan" class="tabcontent">
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+      <div class="w3-col s10">
+        <input placeholder="Enter Name" ng-model="nam" class="w3-input w3-border w3-padding">
+		<input placeholder="Enter Value in 1-100 range" type="number" ng-model="val" class="w3-input w3-border w3-padding">
+		<input placeholder="Enter start Date" type="Date" ng-model="st" class="w3-input w3-border w3-padding">
+		<input placeholder="Enter end Date" type="Date" ng-model="en" class="w3-input w3-border w3-padding">
+      </div>
+      <div class="w3-col s2">
+        <button ng-click="addItem()" class="w3-btn w3-padding w3-green">Add</button>
+      </div>
+    </div>
+    <p class="w3-padding-left w3-text-red">{{errortext}}</p>
+  </div>
+</div>
+
+<div id="report" class="tabcontent">
+  <ul class="w3-ul">
+    <li ng-repeat="x in name">Name: {{x}} </li> <br>
+	<li ng-repeat="x in value">Value:{{x}} </li> <br>
+	<li ng-repeat="x in start">Start Date: {{x}} </li> <br>
+	<li ng-repeat="x in end">End Date: {{x}} </li> <br>
+  </ul>
+  <br>
+</div>
+</div>
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+     
+</body>
+</html>
+
